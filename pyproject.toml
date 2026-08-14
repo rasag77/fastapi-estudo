@@ -31,6 +31,8 @@ extend-exclude = ['migrations']
 [tool.ruff.lint]
 preview = true
 select = ['I', 'F', 'E', 'W', 'PL', 'PT']
+# 1. FORÇA O RUFF A CORRIGIR TODAS AS REGRAS SELECIONADAS (INCLUINDO AS SEU PREVIEW)
+fixable = ['ALL']
 
 [tool.ruff.format]
 preview = true
@@ -41,10 +43,12 @@ pythonpath = "."
 addopts = '-p no:warnings'
 
 [tool.taskipy.tasks]
-lint = 'ruff check'
-pre_format = 'ruff check --fix'
+# 2. ADICIONA A FLAG DE CORREÇÕES INSEGURAS PARA REMOVER OS ESPAÇOS EM BRANCO AUTOMATICAMENTE
+lint = 'ruff check --fix --unsafe-fixes'
 format = 'ruff format'
-run = 'fastapi dev fast_zero/app.py'
+# 3. CRIA UM COMANDO ÚNICO PARA RODAR LINT E FORMAT NA SEQUÊNCIA CORRETA
+fix = 'task lint && task format'
+run = 'fastapi dev rubens_fast/app.py'
 pre_test = 'task lint'
 test = 'pytest -s -x --cov=rubens_fast -vv'
 post_test = 'coverage html'
