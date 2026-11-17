@@ -51,7 +51,7 @@ addopts = '-p no:warnings'
 [tool.taskipy.tasks]
 lint = 'ruff check'
 format = 'ruff format'
-run = 'fastapi dev fast_zero/app.py'
+run = 'fastapi dev fast_one/app.py'
 test = 'pytest -s -x --cov=fast_one -vv'
 pre_format = 'ruff check --fix'
 pre_test = 'task lint'
